@@ -112,11 +112,8 @@ public class ConnectorSloono extends Connector {
 	 * @param ret
 	 *            return code
 	 * @return true if no error code
-	 * @throws WebSMSException
-	 *             WebSMSException
 	 */
-	private boolean checkReturnCode(final Context context, final int ret)
-			throws WebSMSException {
+	private boolean checkReturnCode(final Context context, final int ret) {
 		Log.d(TAG, "ret=" + ret);
 		if (ret < 200) {
 			return true;
@@ -138,11 +135,8 @@ public class ConnectorSloono extends Connector {
 	 *            {@link Context}
 	 * @param command
 	 *            {@link ConnectorCommand}
-	 * @throws WebSMSException
-	 *             WebSMSException
 	 */
-	private void sendData(final Context context, final ConnectorCommand command)
-			throws WebSMSException {
+	private void sendData(final Context context, final ConnectorCommand command) {
 		// do IO
 		try { // get Connection
 			final String text = command.getText();
@@ -181,7 +175,7 @@ public class ConnectorSloono extends Connector {
 			}
 			// send data
 			HttpResponse response = Utils.getHttpClient(url.toString(), null,
-					null, null, null);
+					null, null, null, false);
 			int resp = response.getStatusLine().getStatusCode();
 			if (resp != HttpURLConnection.HTTP_OK) {
 				this.checkReturnCode(context, resp);
@@ -210,8 +204,7 @@ public class ConnectorSloono extends Connector {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected final void doUpdate(final Context context, final Intent intent)
-			throws WebSMSException {
+	protected final void doUpdate(final Context context, final Intent intent) {
 		this.sendData(context, new ConnectorCommand(intent));
 	}
 
@@ -219,8 +212,7 @@ public class ConnectorSloono extends Connector {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected final void doSend(final Context context, final Intent intent)
-			throws WebSMSException {
+	protected final void doSend(final Context context, final Intent intent) {
 		this.sendData(context, new ConnectorCommand(intent));
 	}
 }
