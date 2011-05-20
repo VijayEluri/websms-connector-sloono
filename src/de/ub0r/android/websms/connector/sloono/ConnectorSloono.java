@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Felix Bechstein
+ * Copyright (C) 2010-2011 Felix Bechstein
  * 
  * This file is part of WebSMS.
  * 
@@ -53,6 +53,13 @@ public class ConnectorSloono extends Connector {
 	/** {@link SubConnectorSpec} ID: flash. */
 	private static final String ID_FLASH = "3";
 
+	/** Preference's name: hide basic subcon. */
+	private static final String PREFS_HIDE_BASIC = "hide_basic";
+	/** Preference's name: hide discount subcon. */
+	private static final String PREFS_HIDE_DISCOUNT = "hide_discount";
+	/** Preference's name: hide pro subcon. */
+	private static final String PREFS_HIDE_PRO = "hide_pro";
+
 	/** Sloono Gateway URL. */
 	private static final String URL_SEND = // .
 	"http://www.sloono.de/API/httpsms.php";
@@ -76,9 +83,18 @@ public class ConnectorSloono extends Connector {
 		final short f = (short) (SubConnectorSpec.FEATURE_MULTIRECIPIENTS
 				| SubConnectorSpec.FEATURE_FLASHSMS | // .
 		SubConnectorSpec.FEATURE_SENDLATER);
-		c.addSubConnector(ID_BASIC, context.getString(R.string.basic), f);
-		c.addSubConnector(ID_DISCOUNT, context.getString(R.string.discount), f);
-		c.addSubConnector(ID_PRO, context.getString(R.string.pro), f);
+		final SharedPreferences p = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		if (!p.getBoolean(PREFS_HIDE_BASIC, false)) {
+			c.addSubConnector(ID_BASIC, context.getString(R.string.basic), f);
+		}
+		if (!p.getBoolean(PREFS_HIDE_DISCOUNT, false)) {
+			c.addSubConnector(ID_DISCOUNT,
+					context.getString(R.string.discount), f);
+		}
+		if (!p.getBoolean(PREFS_HIDE_PRO, false)) {
+			c.addSubConnector(ID_PRO, context.getString(R.string.pro), f);
+		}
 		return c;
 	}
 
@@ -136,7 +152,8 @@ public class ConnectorSloono extends Connector {
 	 * @param command
 	 *            {@link ConnectorCommand}
 	 */
-	private void sendData(final Context context, final ConnectorCommand command) {
+	private void sendData(final Context context, // .
+			final ConnectorCommand command) {
 		// do IO
 		try { // get Connection
 			final String text = command.getText();
@@ -175,7 +192,7 @@ public class ConnectorSloono extends Connector {
 			}
 			// send data
 			HttpResponse response = Utils.getHttpClient(url.toString(), null,
-					null, null, null, false);
+					null, null, null, null, false);
 			int resp = response.getStatusLine().getStatusCode();
 			if (resp != HttpURLConnection.HTTP_OK) {
 				this.checkReturnCode(context, resp);

@@ -41,6 +41,6 @@ public final class Preferences extends PreferenceActivity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.addPreferencesFromResource(R.xml.connector_sloono_prefs);
+		this.addPreferencesFromResource(R.xml.prefs);
 	}
 }

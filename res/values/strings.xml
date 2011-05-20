@@ -28,4 +28,10 @@
 	<string name="basic">Basic</string>
 	<string name="discount">Discount</string>
 	<string name="pro">Pro</string>
+	<string name="ignore_basic_">Hide "Basic" SubConnector</string>
+	<string name="ignore_basic_hint">Hide "Basic" SubConnector from selection.</string>
+	<string name="ignore_discount_">Hide "Discount" SubConnector</string>
+	<string name="ignore_discount_hint">Hide "Discount" SubConnector from selection.</string>
+	<string name="ignore_pro_">Hide "Pro" SubConnector</string>
+	<string name="ignore_pro_hint">Hide "Pro" SubConnector from selection.</string>
 </resources>
