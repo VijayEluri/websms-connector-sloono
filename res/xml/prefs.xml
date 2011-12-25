@@ -30,9 +30,6 @@
 	<CheckBoxPreference android:key="hide_basic"
 		android:title="@string/ignore_basic_" android:summary="@string/ignore_basic_hint"
 		android:disableDependentsState="true" android:dependency="enable_sloono" />
-	<CheckBoxPreference android:key="hide_discount"
-		android:title="@string/ignore_discount_" android:summary="@string/ignore_discount_hint"
-		android:disableDependentsState="true" android:dependency="enable_sloono" />
 	<CheckBoxPreference android:key="hide_pro"
 		android:title="@string/ignore_pro_" android:summary="@string/ignore_pro_hint"
 		android:disableDependentsState="true" android:dependency="enable_sloono" />

@@ -31,10 +31,10 @@ import android.preference.PreferenceManager;
 import de.ub0r.android.websms.connector.common.Connector;
 import de.ub0r.android.websms.connector.common.ConnectorCommand;
 import de.ub0r.android.websms.connector.common.ConnectorSpec;
+import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
 import de.ub0r.android.websms.connector.common.Log;
 import de.ub0r.android.websms.connector.common.Utils;
 import de.ub0r.android.websms.connector.common.WebSMSException;
-import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
 
 /**
  * AsyncTask to manage IO to sloono.de API.
@@ -46,17 +46,11 @@ public class ConnectorSloono extends Connector {
 	private static final String TAG = "sloono";
 	/** {@link SubConnectorSpec} ID: basic. */
 	private static final String ID_BASIC = "1";
-	/** {@link SubConnectorSpec} ID: discount. */
-	private static final String ID_DISCOUNT = "0";
 	/** {@link SubConnectorSpec} ID: pro. */
 	private static final String ID_PRO = "2";
-	/** {@link SubConnectorSpec} ID: flash. */
-	private static final String ID_FLASH = "3";
 
 	/** Preference's name: hide basic subcon. */
 	private static final String PREFS_HIDE_BASIC = "hide_basic";
-	/** Preference's name: hide discount subcon. */
-	private static final String PREFS_HIDE_DISCOUNT = "hide_discount";
 	/** Preference's name: hide pro subcon. */
 	private static final String PREFS_HIDE_PRO = "hide_pro";
 
@@ -75,22 +69,17 @@ public class ConnectorSloono extends Connector {
 		final String name = context.getString(R.string.connector_sloono_name);
 		ConnectorSpec c = new ConnectorSpec(name);
 		c.setAuthor(// .
-				context.getString(R.string.connector_sloono_author));
+		context.getString(R.string.connector_sloono_author));
 		c.setBalance(null);
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
 				| ConnectorSpec.CAPABILITIES_PREFS);
-		final short f = (short) (SubConnectorSpec.FEATURE_MULTIRECIPIENTS
-				| SubConnectorSpec.FEATURE_FLASHSMS | // .
+		final short f = (short) (SubConnectorSpec.FEATURE_MULTIRECIPIENTS | // .
 		SubConnectorSpec.FEATURE_SENDLATER);
 		final SharedPreferences p = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		if (!p.getBoolean(PREFS_HIDE_BASIC, false)) {
 			c.addSubConnector(ID_BASIC, context.getString(R.string.basic), f);
-		}
-		if (!p.getBoolean(PREFS_HIDE_DISCOUNT, false)) {
-			c.addSubConnector(ID_DISCOUNT,
-					context.getString(R.string.discount), f);
 		}
 		if (!p.getBoolean(PREFS_HIDE_PRO, false)) {
 			c.addSubConnector(ID_PRO, context.getString(R.string.pro), f);
@@ -174,11 +163,7 @@ public class ConnectorSloono extends Connector {
 
 			if (!checkOnly) {
 				url.append("&typ=");
-				if (command.getFlashSMS()) {
-					url.append(ID_FLASH);
-				} else {
-					url.append(command.getSelectedSubConnector());
-				}
+				url.append(command.getSelectedSubConnector());
 				final long sendLater = command.getSendLater();
 				if (sendLater > 0) {
 					url.append("&timestamp=");

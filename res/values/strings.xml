@@ -26,12 +26,9 @@
 	<string name="partner_sloono_hint">Create new sloono.de account</string>
 	<string name="partner_sloono_url">http://www.sloono.de/?ref=tzil5PslxBSLhluFQknvjA==</string>
 	<string name="basic">Basic</string>
-	<string name="discount">Discount</string>
 	<string name="pro">Pro</string>
 	<string name="ignore_basic_">Hide "Basic" SubConnector</string>
 	<string name="ignore_basic_hint">Hide "Basic" SubConnector from selection.</string>
-	<string name="ignore_discount_">Hide "Discount" SubConnector</string>
-	<string name="ignore_discount_hint">Hide "Discount" SubConnector from selection.</string>
 	<string name="ignore_pro_">Hide "Pro" SubConnector</string>
 	<string name="ignore_pro_hint">Hide "Pro" SubConnector from selection.</string>
 </resources>

@@ -22,8 +22,6 @@
 	<string name="partner_sloono_hint">Neuen sloono.de Account anlegen</string>
 	<string name="ignore_basic_">Verstecke "Basic" SubConnector</string>
 	<string name="ignore_basic_hint">Verstecke "Basic" SubConnector in der Auswahl.</string>
-	<string name="ignore_discount_">Verstecke "Discount" SubConnector</string>
-	<string name="ignore_discount_hint">Verstecke "Discount" SubConnector in der Auswahl.</string>
 	<string name="ignore_pro_">Verstecke "Pro" SubConnector</string>
 	<string name="ignore_pro_hint">Verstecke "Pro" SubConnector in der Auswahl.</string>
 </resources>
